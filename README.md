@@ -1,18 +1,8 @@
 <!-- markdownlint-disable no-inline-html first-line-h1 -->
 
-<div align="center">
-  <a href="https://www.tradingview.com/lightweight-charts/" target="_blank">
-    <img width="200" src="https://github.com/tradingview/lightweight-charts/raw/master/.github/logo.svg?sanitize=true">
-  </a>
+* Dev: `yarn tsc-watch`
+* Build: `yarn build:prod`
 
-  <h1>Lightweight Charts™</h1>
-
-  [![CircleCI][ci-img]][ci-link]
-  [![npm version][npm-version-img]][npm-link]
-  [![npm bundle size][bundle-size-img]][bundle-size-link]
-  [![Dependencies count][deps-count-img]][bundle-size-link]
-  [![Downloads][npm-downloads-img]][npm-link]
-</div>
 
 <!-- markdownlint-enable no-inline-html -->
 
