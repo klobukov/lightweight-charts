@@ -15,7 +15,7 @@ export function walkLine<TItem extends LinePoint, TStyle extends CanvasRendering
 	// the values returned by styleGetter are compared using the operator !==,
 	// so if styleGetter returns objects, then styleGetter should return the same object for equal styles
 	styleGetter: (renderingScope: BitmapCoordinatesRenderingScope, item: TItem) => TStyle,
-	finishStyledArea: (renderingScope: BitmapCoordinatesRenderingScope, style: TStyle, areaFirstItem: LinePoint, newAreaFirstItem: LinePoint) => void
+	finishStyledArea: (renderingScope: BitmapCoordinatesRenderingScope, style: TStyle, areaFirstItem: LinePoint, newAreaFirstItem: LinePoint, bottomItem: LinePoint) => void
 ): void {
 	if (items.length === 0 || visibleRange.from >= items.length || visibleRange.to <= 0) {
 		return;
@@ -38,10 +38,10 @@ export function walkLine<TItem extends LinePoint, TStyle extends CanvasRendering
 		ctx.moveTo(item1.x * horizontalPixelRatio, item1.y * verticalPixelRatio);
 		ctx.lineTo(item2.x * horizontalPixelRatio, item2.y * verticalPixelRatio);
 
-		finishStyledArea(renderingScope, currentStyle, item1, item2);
+		finishStyledArea(renderingScope, currentStyle, item1, item2, items[2]);
 	} else {
 		const changeStyle = (newStyle: TStyle, currentItem: TItem) => {
-			finishStyledArea(renderingScope, currentStyle, currentStyleFirstItem, currentItem);
+			finishStyledArea(renderingScope, currentStyle, currentStyleFirstItem, currentItem, items[2]);
 
 			ctx.beginPath();
 			currentStyle = newStyle;
@@ -54,6 +54,7 @@ export function walkLine<TItem extends LinePoint, TStyle extends CanvasRendering
 		ctx.moveTo(firstItem.x * horizontalPixelRatio, firstItem.y * verticalPixelRatio);
 
 		for (let i = visibleRange.from + 1; i < visibleRange.to; ++i) {
+			if (i == 2) continue
 			currentItem = items[i];
 			const itemStyle = styleGetter(renderingScope, currentItem);
 
@@ -92,7 +93,7 @@ export function walkLine<TItem extends LinePoint, TStyle extends CanvasRendering
 		}
 
 		if (currentStyleFirstItem !== currentItem || currentStyleFirstItem === currentItem && lineType === LineType.WithSteps) {
-			finishStyledArea(renderingScope, currentStyle, currentStyleFirstItem, currentItem);
+			finishStyledArea(renderingScope, currentStyle, currentStyleFirstItem, currentItem, items[2]);
 		}
 	}
 }

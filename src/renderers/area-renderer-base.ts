@@ -28,11 +28,13 @@ function finishStyledArea(
 	scope: BitmapCoordinatesRenderingScope,
 	style: CanvasRenderingContext2D['fillStyle'],
 	areaFirstItem: LinePoint,
-	newAreaFirstItem: LinePoint
+	newAreaFirstItem: LinePoint,
+	bottomItem: LinePoint
 ): void {
+	let bottomBorder = bottomItem.y
 	const { context, horizontalPixelRatio, verticalPixelRatio } = scope;
-	context.lineTo(newAreaFirstItem.x * horizontalPixelRatio, baseLevelCoordinate * verticalPixelRatio);
-	context.lineTo(areaFirstItem.x * horizontalPixelRatio, baseLevelCoordinate * verticalPixelRatio);
+	context.lineTo(newAreaFirstItem.x * horizontalPixelRatio, bottomBorder * verticalPixelRatio);
+	context.lineTo(areaFirstItem.x * horizontalPixelRatio, bottomBorder * verticalPixelRatio);
 	context.closePath();
 	context.fillStyle = style;
 	context.fill();
